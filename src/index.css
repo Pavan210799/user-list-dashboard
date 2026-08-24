@@ -1,0 +1,237 @@
+/* =========================================================
+   GLOBAL RESET & THEME
+========================================================= */
+
+:root {
+  /* Light theme */
+  --text: #342c3b;
+  --text-h: #2d2534;
+
+  --bg: #fff8f8;
+
+  --border: #eadde5;
+
+  --code-bg: #f4eeee;
+
+  --accent: #7a416f;
+  --accent-bg: rgba(122, 65, 111, 0.08);
+  --accent-border: rgba(122, 65, 111, 0.35);
+
+  --social-bg: rgba(244, 238, 238, 0.5);
+
+  --shadow:
+    0 10px 30px rgba(93, 52, 76, 0.06);
+
+  --sans:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+
+  --heading:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+
+  --mono:
+    ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+
+  font-family: var(--sans);
+  font-size: 18px;
+  line-height: 145%;
+  letter-spacing: 0.18px;
+
+  color: var(--text);
+  background-color: var(--bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* =========================================================
+   DARK THEME
+   Controlled by React's .dark class
+========================================================= */
+
+.app.dark {
+  --text: #e7dfe8;
+  --text-h: #f8f2f8;
+
+  --bg: #151117;
+
+  --border: #352b37;
+
+  --code-bg: #211a23;
+
+  --accent: #c78ab9;
+  --accent-bg: rgba(199, 138, 185, 0.12);
+  --accent-border: rgba(199, 138, 185, 0.4);
+
+  --social-bg: rgba(40, 32, 42, 0.6);
+
+  --shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+   BOX SIZING
+========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HTML / BODY
+========================================================= */
+
+html {
+  min-height: 100%;
+  background-color: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  font-family: var(--sans);
+  color: var(--text);
+
+  background-color: var(--bg);
+
+  overflow-x: hidden;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--bg);
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+
+/* =========================================================
+   HEADINGS
+========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+
+  font-family: var(--heading);
+  color: var(--text-h);
+}
+
+
+/* =========================================================
+   PARAGRAPHS
+========================================================= */
+
+p {
+  margin: 0;
+}
+
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+a {
+  color: inherit;
+}
+
+
+/* =========================================================
+   BUTTONS / INPUTS
+========================================================= */
+
+button,
+input {
+  font: inherit;
+}
+
+
+/* =========================================================
+   CODE
+========================================================= */
+
+code,
+.counter {
+  font-family: var(--mono);
+
+  display: inline-flex;
+
+  border-radius: 4px;
+
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+
+  padding: 4px 8px;
+
+  background: var(--code-bg);
+}
+
+
+/* =========================================================
+   RESPONSIVE ROOT TYPOGRAPHY
+========================================================= */
+
+@media (max-width: 1024px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+  body {
+    min-width: 320px;
+  }
+}
