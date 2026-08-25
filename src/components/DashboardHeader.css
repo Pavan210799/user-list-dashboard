@@ -1,0 +1,968 @@
+/* =========================================================
+   HEADER
+========================================================= */
+
+.dashboard-header {
+  position: relative;
+  z-index: 20;
+
+  width: 100%;
+  max-width: 1400px;
+
+  min-height: 92px;
+
+  margin: 0 auto 28px;
+
+  padding: 14px 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: 20px;
+
+  box-shadow: var(--shadow);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* =========================================================
+   HEADER CONTENT
+========================================================= */
+
+.header-content {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   BRAND ICON
+========================================================= */
+
+.brand-icon {
+  width: 62px;
+  height: 62px;
+
+  flex: 0 0 62px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 16px;
+
+  background: var(--primary);
+
+  color: #ffffff;
+
+  border: 1px solid var(--primary);
+
+  box-shadow:
+    0 6px 16px rgba(240, 93, 94, 0.18);
+
+  transition:
+    background-color 0.18s ease,
+    transform 0.12s ease;
+}
+
+.brand-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+
+/* =========================================================
+   HEADER DIVIDER
+========================================================= */
+
+.header-divider {
+  width: 1px;
+  height: 44px;
+
+  flex: 0 0 1px;
+
+  margin: 0 8px;
+
+  background: var(--accent);
+
+  opacity: 0.24;
+
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   HEADER TEXT
+========================================================= */
+
+.header-text {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: flex-start;
+
+  overflow: hidden;
+}
+
+.header-text h1 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 27px;
+
+  font-weight: 650;
+
+  line-height: 1.1;
+
+  letter-spacing: -0.5px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+.header-text p {
+  margin: 4px 0 0;
+
+  color: var(--text-secondary);
+
+  font-size: 11.5px;
+
+  font-weight: 400;
+
+  line-height: 1.3;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.header-actions {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  flex: 0 0 auto;
+}
+
+
+/* =========================================================
+   THEME TOGGLE
+========================================================= */
+
+.theme-toggle {
+  width: 46px;
+  height: 46px;
+
+  padding: 0;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  background: var(--surface);
+
+  color: var(--accent);
+
+  transition:
+    background-color 0.14s ease,
+    border-color 0.14s ease,
+    transform 0.12s ease,
+    box-shadow 0.14s ease;
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.theme-toggle:hover {
+  background: var(--soft-accent);
+
+  border-color: var(--accent);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 4px 10px rgba(107, 63, 105, 0.08);
+}
+
+.theme-toggle:active {
+  transform: translateY(0) scale(0.96);
+}
+
+
+/* =========================================================
+   PROFILE WRAPPER
+========================================================= */
+
+.profile-wrapper {
+  position: relative;
+
+  flex: 0 0 auto;
+}
+
+
+/* =========================================================
+   PROFILE TOGGLE
+========================================================= */
+
+.profile-toggle {
+  width: 46px;
+  height: 46px;
+
+  padding: 0;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  background: var(--surface);
+
+  color: var(--primary);
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  text-transform: uppercase;
+
+  transition:
+    background-color 0.14s ease,
+    border-color 0.14s ease,
+    transform 0.12s ease,
+    box-shadow 0.14s ease;
+}
+
+.profile-toggle:hover,
+.profile-toggle.is-open {
+  background: var(--soft-primary);
+
+  border-color: var(--primary);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 5px 14px rgba(240, 93, 94, 0.12);
+}
+
+.profile-toggle:active {
+  transform: translateY(0) scale(0.96);
+}
+
+
+/* =========================================================
+   PROFILE DRAWER
+========================================================= */
+
+.profile-drawer {
+  position: absolute;
+
+  top: calc(100% + 10px);
+
+  right: 0;
+
+  z-index: 100;
+
+  width: 260px;
+
+  padding: 14px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: 15px;
+
+  box-shadow:
+    0 16px 40px rgba(107, 63, 105, 0.16);
+
+  transform-origin: top right;
+
+  animation:
+    profileDrawerEnter 0.16s ease-out both;
+}
+
+
+/* =========================================================
+   PROFILE DRAWER ANIMATION
+========================================================= */
+
+@keyframes profileDrawerEnter {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-6px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+
+/* =========================================================
+   PROFILE DRAWER HEADER
+========================================================= */
+
+.profile-drawer-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   DRAWER AVATAR
+========================================================= */
+
+.profile-drawer-avatar {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 11px;
+
+  background: var(--primary);
+
+  color: #ffffff;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  box-shadow:
+    0 5px 12px rgba(240, 93, 94, 0.16);
+}
+
+
+/* =========================================================
+   DRAWER USER DETAILS
+========================================================= */
+
+.profile-drawer-user {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 2px;
+
+  overflow: hidden;
+}
+
+.profile-drawer-user strong {
+  width: 100%;
+
+  color: var(--text);
+
+  font-size: 13px;
+
+  font-weight: 650;
+
+  line-height: 1.25;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+.profile-drawer-user span {
+  width: 100%;
+
+  color: var(--text-secondary);
+
+  font-size: 10px;
+
+  line-height: 1.3;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   DRAWER DIVIDER
+========================================================= */
+
+.profile-drawer-divider {
+  width: 100%;
+
+  height: 1px;
+
+  margin: 13px 0;
+
+  background: var(--border);
+}
+
+
+/* =========================================================
+   LOGOUT BUTTON
+========================================================= */
+
+.logout-button {
+  width: 100%;
+
+  min-height: 40px;
+
+  padding: 0 11px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  border: 1px solid transparent;
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: var(--primary);
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  text-align: left;
+
+  transition:
+    background-color 0.12s ease,
+    border-color 0.12s ease,
+    transform 0.10s ease;
+}
+
+.logout-button svg {
+  width: 17px;
+  height: 17px;
+
+  flex: 0 0 17px;
+}
+
+.logout-button:hover {
+  background: var(--soft-primary);
+
+  border-color:
+    rgba(240, 93, 94, 0.15);
+
+  transform: translateX(2px);
+}
+
+.logout-button:active {
+  transform:
+    translateX(2px)
+    scale(0.98);
+}
+
+
+/* =========================================================
+   LARGE TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .dashboard-header {
+    gap: 20px;
+  }
+
+  .header-content {
+    gap: 10px;
+  }
+
+  .brand-icon {
+    width: 60px;
+    height: 60px;
+
+    flex-basis: 60px;
+  }
+
+  .brand-icon svg {
+    width: 31px;
+    height: 31px;
+  }
+
+  .header-divider {
+    height: 44px;
+
+    margin: 0 7px;
+
+    opacity: 0.24;
+  }
+
+  .header-text h1 {
+    font-size: 26px;
+  }
+
+  .header-text p {
+    font-size: 11px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .dashboard-header {
+    min-height: auto;
+
+    padding: 14px;
+
+    gap: 18px;
+  }
+
+  .header-content {
+    gap: 8px;
+  }
+
+  .brand-icon {
+    width: 58px;
+    height: 58px;
+
+    flex-basis: 58px;
+
+    border-radius: 15px;
+  }
+
+  .brand-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .header-divider {
+    height: 42px;
+
+    margin: 0 6px;
+
+    opacity: 0.23;
+  }
+
+  .header-text h1 {
+    font-size: 24px;
+  }
+
+  .header-text p {
+    font-size: 10.5px;
+  }
+
+  .theme-toggle,
+  .profile-toggle {
+    width: 44px;
+    height: 44px;
+
+    border-radius: 11px;
+  }
+
+  .profile-toggle {
+    font-size: 16px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .dashboard-header {
+
+    width: 100%;
+
+    min-height: 68px;
+
+    margin-bottom: 18px;
+
+    padding: 8px 9px;
+
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 6px;
+
+    border-radius: 16px;
+
+    overflow: visible;
+  }
+
+
+  .header-content {
+
+    flex: 1;
+
+    width: auto;
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    overflow: hidden;
+  }
+
+
+  .brand-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    flex: 0 0 44px;
+
+    border-radius: 11px;
+  }
+
+
+  .brand-icon svg {
+
+    width: 24px;
+
+    height: 24px;
+
+  }
+
+
+  .header-divider {
+
+    width: 1px;
+
+    height: 32px;
+
+    flex: 0 0 1px;
+
+    margin: 0 5px;
+
+    opacity: 0.22;
+  }
+
+
+  .header-text {
+
+    flex: 1;
+
+    min-width: 0;
+
+    overflow: hidden;
+  }
+
+
+  .header-text h1 {
+
+    font-size: 18px;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.25px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+  }
+
+
+  .header-text p {
+
+    margin-top: 2px;
+
+    font-size: 8.5px;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+  }
+
+
+  .header-actions {
+
+    width: auto;
+
+    flex: 0 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+  }
+
+
+  .theme-toggle,
+  .profile-toggle {
+
+    width: 40px;
+
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    border-radius: 10px;
+
+  }
+
+
+  .theme-toggle svg {
+
+    width: 18px;
+
+    height: 18px;
+
+  }
+
+
+  .profile-toggle {
+
+    font-size: 14px;
+
+  }
+
+
+  .profile-drawer {
+
+    position: fixed;
+
+    top: 76px;
+
+    right: 10px;
+
+    width: min(
+      250px,
+      calc(100vw - 20px)
+    );
+
+    border-radius: 14px;
+
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .dashboard-header {
+
+    min-height: 62px;
+
+    padding: 7px 8px;
+
+    margin-bottom: 16px;
+
+    border-radius: 14px;
+
+    gap: 4px;
+
+  }
+
+
+  .header-content {
+
+    gap: 3px;
+
+  }
+
+
+  .brand-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    flex-basis: 40px;
+
+    border-radius: 10px;
+
+  }
+
+
+  .brand-icon svg {
+
+    width: 22px;
+
+    height: 22px;
+
+  }
+
+
+  .header-divider {
+
+    height: 29px;
+
+    margin: 0 4px;
+
+    opacity: 0.22;
+
+  }
+
+
+  .header-text h1 {
+
+    font-size: 16px;
+
+    letter-spacing: -0.2px;
+
+  }
+
+
+  .header-text p {
+
+    font-size: 7.5px;
+
+  }
+
+
+  .header-actions {
+
+    gap: 4px;
+
+  }
+
+
+  .theme-toggle,
+  .profile-toggle {
+
+    width: 38px;
+
+    height: 38px;
+
+    flex-basis: 38px;
+
+    border-radius: 9px;
+
+  }
+
+
+  .theme-toggle svg {
+
+    width: 17px;
+
+    height: 17px;
+
+  }
+
+
+  .profile-toggle {
+
+    font-size: 13px;
+
+  }
+
+
+  .profile-drawer {
+
+    top: 68px;
+
+    right: 8px;
+
+    width: min(
+      240px,
+      calc(100vw - 16px)
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .profile-drawer {
+    animation: none;
+  }
+
+}

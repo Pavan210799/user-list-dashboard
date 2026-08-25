@@ -1,322 +1,708 @@
 import { useEffect, useState } from "react";
+
 import { fetchUsers } from "./services/userService";
+
+import {
+  getCurrentUser,
+  isUserAuthenticated,
+  logoutUser,
+} from "./services/authService";
+
 import UserTable from "./components/UserTable";
 import UserDetailsModal from "./components/UserDetailsModal";
 import EmptyState from "./components/EmptyState";
 import Loading from "./components/Loading";
 import ErrorMessage from "./components/ErrorMessage";
+
+import DashboardHeader from "./components/DashboardHeader";
+import UserSearch from "./components/UserSearch";
+
+import LoginPage from "./auth/LoginPage";
+import SignupPage from "./auth/SignupPage";
+import SignupSuccessPage from "./auth/SignupSuccessPage";
+import ForgotPasswordPage from "./auth/ForgotPasswordPage";
+import ResetPasswordPage from "./auth/ResetPasswordPage";
+
 import "./App.css";
 
+
+const THEME_STORAGE_KEY =
+  "userDashboardTheme";
+
+const CURRENT_USER_KEY =
+  "userDashboardCurrentUser";
+
+
 function App() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
 
-  /* =========================
-     FETCH USERS
-  ========================= */
+  /* =========================================================
+     AUTHENTICATION
+  ========================================================= */
 
-  const loadUsers = async () => {
-    try {
-      setLoading(true);
-      setError("");
-      setSearchTerm("");
+  const [currentUser, setCurrentUser] = useState(
+    () => getCurrentUser()
+  );
 
-      const data = await fetchUsers();
+  const [authPage, setAuthPage] =
+    useState("login");
 
-      setUsers(data);
-    } catch (error) {
-      setError("Unable to load users. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [resetEmail, setResetEmail] =
+    useState("");
+
+
+  /* =========================================================
+     SIGNUP SUCCESS USER
+  ========================================================= */
+
+  const [signupSuccessUser, setSignupSuccessUser] =
+    useState(null);
+
+
+  /* =========================================================
+     DASHBOARD STATE
+  ========================================================= */
+
+  const [users, setUsers] =
+    useState([]);
+
+  const [loading, setLoading] =
+    useState(false);
+
+  const [error, setError] =
+    useState("");
+
+  const [searchTerm, setSearchTerm] =
+    useState("");
+
+  const [selectedUser, setSelectedUser] =
+    useState(null);
+
+
+  /* =========================================================
+     PERSISTENT THEME
+  ========================================================= */
+
+  const [isDarkMode, setIsDarkMode] =
+    useState(() => {
+
+      const storedTheme =
+        localStorage.getItem(
+          THEME_STORAGE_KEY
+        );
+
+      return storedTheme === "dark";
+
+    });
+
+
+  /* =========================================================
+     SAVE THEME
+  ========================================================= */
 
   useEffect(() => {
-    loadUsers();
-  }, []);
 
-  /* =========================
-     AUTOMATIC SEARCH
-  ========================= */
+    localStorage.setItem(
+      THEME_STORAGE_KEY,
+      isDarkMode
+        ? "dark"
+        : "light"
+    );
 
-  const filteredUsers = users.filter((user) => {
-    const term = searchTerm.trim().toLowerCase();
+  }, [isDarkMode]);
 
-    if (!term) {
-      return true;
+
+  /* =========================================================
+     AUTHENTICATION CHECK
+  ========================================================= */
+
+  useEffect(() => {
+
+    const storedUser =
+      getCurrentUser();
+
+    if (
+      storedUser &&
+      isUserAuthenticated()
+    ) {
+
+      setCurrentUser(
+        storedUser
+      );
+
+    } else {
+
+      setCurrentUser(null);
+
     }
 
-    return (
-      user.name.toLowerCase().includes(term) ||
-      user.username.toLowerCase().includes(term) ||
-      user.email.toLowerCase().includes(term) ||
-      user.company.name.toLowerCase().includes(term)
+  }, []);
+
+
+  /* =========================================================
+     FETCH USERS
+  ========================================================= */
+
+  const loadUsers = async () => {
+
+    try {
+
+      setLoading(true);
+
+      setError("");
+
+      setSearchTerm("");
+
+      const data =
+        await fetchUsers();
+
+      setUsers(data);
+
+    } catch (error) {
+
+      setError(
+        "Unable to load users. Please try again."
+      );
+
+    } finally {
+
+      setLoading(false);
+
+    }
+
+  };
+
+
+  /* =========================================================
+     LOAD DASHBOARD AFTER LOGIN
+  ========================================================= */
+
+  useEffect(() => {
+
+    if (!currentUser) {
+      return;
+    }
+
+    loadUsers();
+
+  }, [currentUser]);
+
+
+  /* =========================================================
+     SEARCH
+  ========================================================= */
+
+  const filteredUsers =
+    users.filter((user) => {
+
+      const term =
+        searchTerm
+          .trim()
+          .toLowerCase();
+
+      if (!term) {
+        return true;
+      }
+
+      return (
+        user.name
+          .toLowerCase()
+          .includes(term) ||
+
+        user.username
+          .toLowerCase()
+          .includes(term) ||
+
+        user.email
+          .toLowerCase()
+          .includes(term) ||
+
+        user.company.name
+          .toLowerCase()
+          .includes(term)
+      );
+
+    });
+
+
+  /* =========================================================
+     LOGIN SUCCESS
+  ========================================================= */
+
+  const handleLoginSuccess = (user) => {
+
+    setCurrentUser(user);
+
+    setAuthPage("login");
+
+  };
+
+
+  /* =========================================================
+     SIGNUP SUCCESS
+  ========================================================= */
+
+  const handleSignupSuccess = (user) => {
+
+    setSignupSuccessUser(user);
+
+    setAuthPage(
+      "signup-success"
     );
-  });
 
-  /* =========================
-     SELECT USER
-  ========================= */
-
-  const handleUserSelect = (user) => {
-    setSelectedUser(user);
   };
 
-  /* =========================
-     CLOSE USER DETAILS
-  ========================= */
 
-  const handleCloseUserDetails = () => {
+  /* =========================================================
+     BACK TO LOGIN FROM SUCCESS PAGE
+  ========================================================= */
+
+  const handleBackToLogin =
+    () => {
+
+      setSignupSuccessUser(null);
+
+      setAuthPage("login");
+
+    };
+
+
+  /* =========================================================
+     GO TO DASHBOARD FROM SUCCESS PAGE
+  ========================================================= */
+
+  const handleGoToDashboard =
+    () => {
+
+      if (!signupSuccessUser) {
+
+        setAuthPage("login");
+
+        return;
+
+      }
+
+
+      const sessionUser = {
+        id: signupSuccessUser.id,
+        name: signupSuccessUser.name,
+        email: signupSuccessUser.email,
+      };
+
+
+      /*
+        Create persistent login session.
+
+        This is the same storage key used by
+        authService.js.
+      */
+
+      localStorage.setItem(
+        CURRENT_USER_KEY,
+        JSON.stringify(
+          sessionUser
+        )
+      );
+
+
+      setCurrentUser(
+        sessionUser
+      );
+
+      setSignupSuccessUser(null);
+
+      setAuthPage("login");
+
+    };
+
+
+  /* =========================================================
+     EMAIL VERIFIED
+  ========================================================= */
+
+  const handleEmailVerified =
+    (email) => {
+
+      setResetEmail(email);
+
+      setAuthPage(
+        "reset-password"
+      );
+
+    };
+
+
+  /* =========================================================
+     RESET SUCCESS
+  ========================================================= */
+
+  const handleResetSuccess =
+    () => {
+
+      setResetEmail("");
+
+      setAuthPage("login");
+
+    };
+
+
+  /* =========================================================
+     LOGOUT
+  ========================================================= */
+
+  const handleLogout = () => {
+
+    logoutUser();
+
+    setCurrentUser(null);
+
     setSelectedUser(null);
+
+    setUsers([]);
+
+    setSearchTerm("");
+
+    setError("");
+
+    setSignupSuccessUser(null);
+
+    setAuthPage("login");
+
   };
+
+
+  /* =========================================================
+     SELECT USER
+  ========================================================= */
+
+  const handleUserSelect =
+    (user) => {
+
+      setSelectedUser(user);
+
+    };
+
+
+  /* =========================================================
+     CLOSE MODAL
+  ========================================================= */
+
+  const handleCloseUserDetails =
+    () => {
+
+      setSelectedUser(null);
+
+    };
+
+
+  /* =========================================================
+     AUTHENTICATION PAGES
+  ========================================================= */
+
+  if (!currentUser) {
+
+
+    /* =======================================================
+       SIGNUP
+    ======================================================= */
+
+    if (
+      authPage === "signup"
+    ) {
+
+      return (
+        <SignupPage
+          isDarkMode={
+            isDarkMode
+          }
+
+          setIsDarkMode={
+            setIsDarkMode
+          }
+
+          onSignupSuccess={
+            handleSignupSuccess
+          }
+
+          onNavigateToLogin={() =>
+            setAuthPage(
+              "login"
+            )
+          }
+        />
+      );
+
+    }
+
+
+    /* =======================================================
+       SIGNUP SUCCESS
+    ======================================================= */
+
+    if (
+      authPage ===
+      "signup-success"
+    ) {
+
+      return (
+        <SignupSuccessPage
+          user={
+            signupSuccessUser
+          }
+
+          isDarkMode={
+            isDarkMode
+          }
+
+          setIsDarkMode={
+            setIsDarkMode
+          }
+
+          onBackToLogin={
+            handleBackToLogin
+          }
+
+          onGoToDashboard={
+            handleGoToDashboard
+          }
+        />
+      );
+
+    }
+
+
+    /* =======================================================
+       FORGOT PASSWORD
+    ======================================================= */
+
+    if (
+      authPage ===
+      "forgot-password"
+    ) {
+
+      return (
+        <ForgotPasswordPage
+          isDarkMode={
+            isDarkMode
+          }
+
+          setIsDarkMode={
+            setIsDarkMode
+          }
+
+          onEmailVerified={
+            handleEmailVerified
+          }
+
+          onNavigateToLogin={() =>
+            setAuthPage(
+              "login"
+            )
+          }
+        />
+      );
+
+    }
+
+
+    /* =======================================================
+       RESET PASSWORD
+    ======================================================= */
+
+    if (
+      authPage ===
+      "reset-password"
+    ) {
+
+      return (
+        <ResetPasswordPage
+          isDarkMode={
+            isDarkMode
+          }
+
+          setIsDarkMode={
+            setIsDarkMode
+          }
+
+          email={
+            resetEmail
+          }
+
+          onResetSuccess={
+            handleResetSuccess
+          }
+
+          onNavigateToLogin={() =>
+            setAuthPage(
+              "login"
+            )
+          }
+        />
+      );
+
+    }
+
+
+    /* =======================================================
+       LOGIN
+    ======================================================= */
+
+    return (
+      <LoginPage
+        isDarkMode={
+          isDarkMode
+        }
+
+        setIsDarkMode={
+          setIsDarkMode
+        }
+
+        onLoginSuccess={
+          handleLoginSuccess
+        }
+
+        onNavigateToSignup={() =>
+          setAuthPage(
+            "signup"
+          )
+        }
+
+        onNavigateToForgotPassword={() =>
+          setAuthPage(
+            "forgot-password"
+          )
+        }
+      />
+    );
+
+  }
+
+
+  /* =========================================================
+     DASHBOARD
+  ========================================================= */
 
   return (
-    <div className={`app ${isDarkMode ? "dark" : ""}`}>
 
-      {/* =========================
+    <div
+      className={`app ${
+        isDarkMode
+          ? "dark"
+          : ""
+      }`}
+    >
+
+
+      {/* =====================================================
           HEADER
-      ========================= */}
+      ===================================================== */}
 
-      <header className="dashboard-header">
+      <DashboardHeader
+        isDarkMode={
+          isDarkMode
+        }
 
-        <div className="header-content">
+        setIsDarkMode={
+          setIsDarkMode
+        }
 
-          <div
-            className="brand-icon"
-            aria-hidden="true"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M16 21V19C16 16.7909 14.2091 15 12 15H6C3.79086 15 2 16.7909 2 19V21"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+        currentUser={
+          currentUser
+        }
 
-              <circle
-                cx="9"
-                cy="7"
-                r="4"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              />
+        onLogout={
+          handleLogout
+        }
+      />
 
-              <path
-                d="M22 21V19C21.9999 17.1332 20.7095 15.5141 18.9 15.05"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              />
 
-              <path
-                d="M16.9 3.05C18.7131 3.51116 20.0076 5.13117 20.0076 7C20.0076 8.86883 18.7131 10.4888 16.9 10.95"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
+      {/* =====================================================
+          SEARCH
+      ===================================================== */}
 
-          <div
-            className="header-divider"
-            aria-hidden="true"
-          ></div>
+      <UserSearch
+        searchTerm={
+          searchTerm
+        }
 
-          <div className="header-text">
-            <h1>User Dashboard</h1>
+        setSearchTerm={
+          setSearchTerm
+        }
 
-            <p>
-              Manage and view users from JSONPlaceholder
-            </p>
-          </div>
+        onRefresh={
+          loadUsers
+        }
 
-        </div>
+        loading={
+          loading
+        }
 
-        <div className="header-actions">
+        userCount={
+          filteredUsers.length
+        }
+      />
 
-          <button
-            className="theme-toggle"
-            onClick={() =>
-              setIsDarkMode((previous) => !previous)
-            }
-            aria-label={
-              isDarkMode
-                ? "Switch to light mode"
-                : "Switch to dark mode"
-            }
-          >
-            {isDarkMode ? (
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="4"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                />
 
-                <path
-                  d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                />
-              </svg>
-            ) : (
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21 12.79A9 9 0 1 1 11.21 3C10.7 3.84 10.43 4.82 10.43 5.86C10.43 8.9 12.89 11.36 15.93 11.36C16.97 11.36 17.95 11.09 18.79 10.58C19.08 11.28 19.84 12.03 21 12.79Z"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            )}
-          </button>
-
-        </div>
-
-      </header>
-
-      {/* =========================
-          SEARCH SECTION
-      ========================= */}
-
-      <section className="search-section">
-
-        <div className="search-controls">
-
-          <input
-            type="text"
-            placeholder="Search by name, username, email or company..."
-            value={searchTerm}
-            onChange={(event) =>
-              setSearchTerm(event.target.value)
-            }
-            aria-label="Search by name, username, email or company"
-          />
-
-          <button
-            className="refresh-button"
-            onClick={loadUsers}
-            disabled={loading}
-            aria-label="Refresh users"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20 11A8.1 8.1 0 0 0 5.5 6.5L3 9"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-
-              <path
-                d="M3 4V9H8"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-
-              <path
-                d="M4 13A8.1 8.1 0 0 0 18.5 17.5L21 15"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-
-              <path
-                d="M21 20V15H16"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-
-            Refresh
-          </button>
-
-        </div>
-
-        <div className="total-users">
-
-          <span>
-            {searchTerm
-              ? "Matching Users"
-              : "Total Users"}
-          </span>
-
-          <strong>
-            {filteredUsers.length}
-          </strong>
-
-        </div>
-
-      </section>
-
-      {/* =========================
+      {/* =====================================================
           CONTENT
-      ========================= */}
+      ===================================================== */}
 
       <main className="content-area">
 
         {loading ? (
+
           <Loading />
 
         ) : error ? (
+
           <ErrorMessage
-            message={error}
-            onRetry={loadUsers}
+            message={
+              error
+            }
+
+            onRetry={
+              loadUsers
+            }
           />
 
         ) : filteredUsers.length === 0 ? (
+
           <EmptyState />
 
         ) : (
+
           <UserTable
-            users={filteredUsers}
-            onUserSelect={handleUserSelect}
+            users={
+              filteredUsers
+            }
+
+            onUserSelect={
+              handleUserSelect
+            }
           />
+
         )}
 
       </main>
 
-      {/* =========================
+
+      {/* =====================================================
           USER DETAILS MODAL
-      ========================= */}
+      ===================================================== */}
 
       <UserDetailsModal
-        user={selectedUser}
-        onClose={handleCloseUserDetails}
+        user={
+          selectedUser
+        }
+
+        onClose={
+          handleCloseUserDetails
+        }
       />
 
     </div>
+
   );
+
 }
 
 export default App;

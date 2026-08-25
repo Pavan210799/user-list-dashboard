@@ -1,0 +1,444 @@
+/* =========================================================
+   AUTH BACKGROUND
+========================================================= */
+
+.auth-background {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(240, 93, 94, 0.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 75%,
+      rgba(107, 63, 105, 0.13),
+      transparent 32%
+    ),
+    #faf7f8;
+
+  transition:
+    background 0.3s ease;
+}
+
+
+/* =========================================================
+   DARK AUTH BACKGROUND
+========================================================= */
+
+.auth-background.dark {
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(255, 113, 111, 0.09),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 75%,
+      rgba(182, 108, 175, 0.11),
+      transparent 32%
+    ),
+    #17131a;
+}
+
+
+/* =========================================================
+   SOFT CENTER GLOW
+========================================================= */
+
+.auth-background-gradient {
+  position: absolute;
+
+  inset: -20%;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.18),
+      transparent 43%
+    );
+
+  opacity: 0.55;
+
+  transition:
+    background 0.3s ease,
+    opacity 0.3s ease;
+}
+
+
+/* =========================================================
+   DARK CENTER GLOW
+========================================================= */
+
+.auth-background.dark
+.auth-background-gradient {
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.018),
+      transparent 43%
+    );
+
+  opacity: 0.7;
+}
+
+
+/* =========================================================
+   FLOATING SHAPES
+========================================================= */
+
+.auth-floating-shape {
+  position: absolute;
+
+  border: 1px solid
+    rgba(240, 93, 94, 0.18);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(240, 93, 94, 0.10),
+      rgba(107, 63, 105, 0.07)
+    );
+
+  backdrop-filter: blur(3px);
+
+  -webkit-backdrop-filter: blur(3px);
+
+  box-shadow:
+    0 20px 60px
+      rgba(107, 63, 105, 0.06);
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+/* =========================================================
+   DARK FLOATING SHAPES
+========================================================= */
+
+.auth-background.dark
+.auth-floating-shape {
+  border-color:
+    rgba(255, 113, 111, 0.13);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 113, 111, 0.055),
+      rgba(182, 108, 175, 0.05)
+    );
+
+  box-shadow:
+    0 20px 60px
+      rgba(0, 0, 0, 0.16);
+}
+
+
+/* =========================================================
+   SHAPE ONE
+========================================================= */
+
+.auth-shape-one {
+  width: 190px;
+  height: 190px;
+
+  top: 8%;
+  left: 8%;
+
+  border-radius: 42px;
+
+  transform: rotate(20deg);
+}
+
+
+/* =========================================================
+   SHAPE TWO
+========================================================= */
+
+.auth-shape-two {
+  width: 150px;
+  height: 150px;
+
+  right: 10%;
+  top: 15%;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(107, 63, 105, 0.08),
+      rgba(240, 93, 94, 0.06)
+    );
+}
+
+
+/* =========================================================
+   DARK SHAPE TWO
+========================================================= */
+
+.auth-background.dark
+.auth-shape-two {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(182, 108, 175, 0.055),
+      rgba(255, 113, 111, 0.045)
+    );
+}
+
+
+/* =========================================================
+   SHAPE THREE
+========================================================= */
+
+.auth-shape-three {
+  width: 220px;
+  height: 220px;
+
+  right: 12%;
+  bottom: -70px;
+
+  border-radius: 55px;
+
+  transform: rotate(25deg);
+}
+
+
+/* =========================================================
+   FLOATING CIRCLES
+========================================================= */
+
+.auth-floating-circle {
+  position: absolute;
+
+  border-radius: 50%;
+
+  background:
+    rgba(240, 93, 94, 0.08);
+
+  border: 1px solid
+    rgba(240, 93, 94, 0.14);
+
+  box-shadow:
+    0 15px 40px
+      rgba(240, 93, 94, 0.05);
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+/* =========================================================
+   DARK FLOATING CIRCLES
+========================================================= */
+
+.auth-background.dark
+.auth-floating-circle {
+  background:
+    rgba(255, 113, 111, 0.05);
+
+  border-color:
+    rgba(255, 113, 111, 0.10);
+
+  box-shadow:
+    0 15px 40px
+      rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   CIRCLE ONE
+========================================================= */
+
+.auth-circle-one {
+  width: 90px;
+  height: 90px;
+
+  left: 25%;
+  bottom: 13%;
+}
+
+
+/* =========================================================
+   CIRCLE TWO
+========================================================= */
+
+.auth-circle-two {
+  width: 70px;
+  height: 70px;
+
+  right: 30%;
+  top: 10%;
+
+  background:
+    rgba(107, 63, 105, 0.08);
+
+  border-color:
+    rgba(107, 63, 105, 0.14);
+}
+
+
+/* =========================================================
+   DARK CIRCLE TWO
+========================================================= */
+
+.auth-background.dark
+.auth-circle-two {
+  background:
+    rgba(182, 108, 175, 0.055);
+
+  border-color:
+    rgba(182, 108, 175, 0.10);
+}
+
+
+/* =========================================================
+   BACKGROUND GRID
+========================================================= */
+
+.auth-background-grid {
+  position: absolute;
+
+  inset: 0;
+
+  opacity: 0.30;
+
+  background-image:
+
+    linear-gradient(
+      rgba(107, 63, 105, 0.04) 1px,
+      transparent 1px
+    ),
+
+    linear-gradient(
+      90deg,
+      rgba(107, 63, 105, 0.04) 1px,
+      transparent 1px
+    );
+
+  background-size: 42px 42px;
+
+  mask-image:
+    radial-gradient(
+      ellipse at center,
+      black 20%,
+      transparent 75%
+    );
+
+  -webkit-mask-image:
+    radial-gradient(
+      ellipse at center,
+      black 20%,
+      transparent 75%
+    );
+
+  transition:
+    opacity 0.3s ease,
+    background-image 0.3s ease;
+}
+
+
+/* =========================================================
+   DARK GRID
+========================================================= */
+
+.auth-background.dark
+.auth-background-grid {
+  opacity: 0.16;
+
+  background-image:
+
+    linear-gradient(
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    ),
+
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    );
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .auth-shape-one {
+    width: 130px;
+    height: 130px;
+
+    left: -40px;
+    top: 10%;
+
+    border-radius: 30px;
+  }
+
+  .auth-shape-two {
+    width: 100px;
+    height: 100px;
+
+    right: -30px;
+    top: 15%;
+  }
+
+  .auth-shape-three {
+    width: 150px;
+    height: 150px;
+
+    right: -50px;
+    bottom: -40px;
+
+    border-radius: 38px;
+  }
+
+  .auth-circle-one {
+    width: 60px;
+    height: 60px;
+
+    left: 15%;
+    bottom: 10%;
+  }
+
+  .auth-circle-two {
+    width: 48px;
+    height: 48px;
+
+    right: 25%;
+  }
+
+  .auth-background-grid {
+    background-size: 30px 30px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .auth-floating-shape,
+  .auth-floating-circle {
+    animation: none !important;
+  }
+}

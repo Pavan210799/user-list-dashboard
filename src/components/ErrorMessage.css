@@ -1,0 +1,347 @@
+/* =========================================================
+   ERROR MESSAGE
+========================================================= */
+
+.error-message {
+  width: 100%;
+
+  min-height: 226px;
+
+  padding: 42px 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: 18px;
+
+  box-shadow: var(--shadow);
+
+  color: var(--text);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* =========================================================
+   ERROR ICON
+========================================================= */
+
+.error-message::before {
+  content: "!";
+
+  width: 48px;
+  height: 48px;
+
+  margin-bottom: 16px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 14px;
+
+  background: var(--soft-primary);
+
+  border: 1px solid
+    rgba(240, 93, 94, 0.20);
+
+  color: var(--primary);
+
+  font-size: 22px;
+
+  font-weight: 750;
+
+  line-height: 1;
+
+  box-shadow:
+    0 6px 18px rgba(240, 93, 94, 0.08);
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.error-message h2 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 23px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  letter-spacing: -0.35px;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.error-message p {
+  margin: 9px 0 18px;
+
+  max-width: 440px;
+
+  color: var(--text-secondary);
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   RETRY BUTTON
+========================================================= */
+
+.error-message button {
+  min-height: 42px;
+
+  padding: 0 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--primary);
+
+  border-radius: 10px;
+
+  background: var(--primary);
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+  font-weight: 650;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 14px rgba(240, 93, 94, 0.13);
+
+  transition:
+    background-color 0.14s ease,
+    border-color 0.14s ease,
+    box-shadow 0.14s ease,
+    transform 0.12s ease;
+}
+
+
+.error-message button:hover {
+  background: var(--primary-hover);
+
+  border-color: var(--primary-hover);
+
+  box-shadow:
+    0 7px 17px rgba(240, 93, 94, 0.18);
+
+  transform: translateY(-1px);
+}
+
+
+.error-message button:active {
+  transform: translateY(0);
+
+  box-shadow:
+    0 4px 10px rgba(240, 93, 94, 0.12);
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.error-message button:focus-visible {
+  outline: 3px solid
+    rgba(240, 93, 94, 0.22);
+
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+.app.dark .error-message::before {
+  box-shadow:
+    0 6px 18px rgba(255, 113, 111, 0.07);
+}
+
+.app.dark .error-message button {
+  box-shadow:
+    0 5px 14px rgba(255, 113, 111, 0.10);
+}
+
+.app.dark .error-message button:hover {
+  box-shadow:
+    0 7px 17px rgba(255, 113, 111, 0.14);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .error-message {
+    min-height: 210px;
+
+    padding: 38px 20px;
+
+    border-radius: 16px;
+  }
+
+  .error-message::before {
+    width: 45px;
+    height: 45px;
+
+    margin-bottom: 14px;
+
+    border-radius: 13px;
+
+    font-size: 21px;
+  }
+
+  .error-message h2 {
+    font-size: 21px;
+  }
+
+  .error-message p {
+    font-size: 12.5px;
+
+    margin-top: 8px;
+    margin-bottom: 17px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+  .error-message {
+    min-height: 200px;
+
+    padding: 32px 16px;
+
+    border-radius: 14px;
+  }
+
+  .error-message::before {
+    width: 42px;
+    height: 42px;
+
+    margin-bottom: 13px;
+
+    border-radius: 12px;
+
+    font-size: 19px;
+  }
+
+  .error-message h2 {
+    font-size: 19px;
+
+    letter-spacing: -0.25px;
+  }
+
+  .error-message p {
+    max-width: 320px;
+
+    margin-top: 8px;
+    margin-bottom: 16px;
+
+    font-size: 11.5px;
+
+    line-height: 1.45;
+  }
+
+  .error-message button {
+    min-height: 40px;
+
+    padding: 0 16px;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 400px) {
+  .error-message {
+    min-height: 190px;
+
+    padding: 28px 12px;
+
+    border-radius: 13px;
+  }
+
+  .error-message::before {
+    width: 40px;
+    height: 40px;
+
+    margin-bottom: 12px;
+
+    border-radius: 11px;
+
+    font-size: 18px;
+  }
+
+  .error-message h2 {
+    font-size: 18px;
+  }
+
+  .error-message p {
+    max-width: 280px;
+
+    font-size: 11px;
+
+    margin-bottom: 15px;
+  }
+
+  .error-message button {
+    min-height: 38px;
+
+    padding: 0 14px;
+
+    font-size: 11.5px;
+
+    border-radius: 9px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .error-message button {
+    transition: none;
+  }
+
+  .error-message button:hover {
+    transform: none;
+  }
+}

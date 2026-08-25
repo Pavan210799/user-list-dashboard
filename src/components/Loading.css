@@ -1,0 +1,306 @@
+/* =========================================================
+   LOADING STATE
+========================================================= */
+
+.loading {
+  width: 100%;
+
+  min-height: 226px;
+
+  padding: 42px 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: 18px;
+
+  box-shadow: var(--shadow);
+
+  color: var(--text);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.loading-spinner {
+  position: relative;
+
+  width: 48px;
+  height: 48px;
+
+  margin-bottom: 17px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 14px;
+
+  background: var(--soft-primary);
+
+  border: 1px solid
+    rgba(240, 93, 94, 0.18);
+
+  box-shadow:
+    0 6px 18px rgba(240, 93, 94, 0.08);
+}
+
+
+/* =========================================================
+   SPINNER RING
+========================================================= */
+
+.loading-spinner::before {
+  content: "";
+
+  width: 22px;
+  height: 22px;
+
+  border-radius: 50%;
+
+  border: 2.5px solid
+    rgba(240, 93, 94, 0.18);
+
+  border-top-color: var(--primary);
+
+  animation:
+    loading-spin 0.8s linear infinite;
+}
+
+
+/* =========================================================
+   INNER DOT
+========================================================= */
+
+.loading-spinner span {
+  position: absolute;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+}
+
+
+/* =========================================================
+   SPIN ANIMATION
+========================================================= */
+
+@keyframes loading-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.loading h2 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 21px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  letter-spacing: -0.3px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.loading p {
+  margin: 8px 0 0;
+
+  max-width: 380px;
+
+  color: var(--text-secondary);
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+.app.dark .loading-spinner {
+  box-shadow:
+    0 6px 18px rgba(255, 113, 111, 0.06);
+}
+
+.app.dark .loading-spinner::before {
+  border-color:
+    rgba(255, 113, 111, 0.14);
+
+  border-top-color:
+    var(--primary);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .loading {
+    min-height: 210px;
+
+    padding: 38px 20px;
+
+    border-radius: 16px;
+  }
+
+  .loading-spinner {
+    width: 45px;
+    height: 45px;
+
+    margin-bottom: 15px;
+
+    border-radius: 13px;
+  }
+
+  .loading-spinner::before {
+    width: 21px;
+    height: 21px;
+  }
+
+  .loading h2 {
+    font-size: 20px;
+  }
+
+  .loading p {
+    font-size: 12.5px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+  .loading {
+    min-height: 200px;
+
+    padding: 32px 16px;
+
+    border-radius: 14px;
+  }
+
+  .loading-spinner {
+    width: 42px;
+    height: 42px;
+
+    margin-bottom: 14px;
+
+    border-radius: 12px;
+  }
+
+  .loading-spinner::before {
+    width: 20px;
+    height: 20px;
+
+    border-width: 2px;
+  }
+
+  .loading-spinner span {
+    width: 4px;
+    height: 4px;
+  }
+
+  .loading h2 {
+    font-size: 19px;
+
+    letter-spacing: -0.25px;
+  }
+
+  .loading p {
+    max-width: 300px;
+
+    font-size: 11.5px;
+
+    line-height: 1.45;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 400px) {
+  .loading {
+    min-height: 190px;
+
+    padding: 28px 12px;
+
+    border-radius: 13px;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+
+    margin-bottom: 13px;
+
+    border-radius: 11px;
+  }
+
+  .loading-spinner::before {
+    width: 19px;
+    height: 19px;
+  }
+
+  .loading h2 {
+    font-size: 18px;
+  }
+
+  .loading p {
+    max-width: 270px;
+
+    font-size: 11px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner::before {
+    animation: none;
+
+    border-top-color: var(--primary);
+  }
+}
